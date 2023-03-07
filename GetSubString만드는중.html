@@ -1,8 +1,20 @@
+<!DOCTYPE html>
 <html>
 <body onload="MAIN()">
     <input type="button" id="hw" value="Hello world" />
 
 <script type="text/javascript">
+
+    /** 
+     * 문자열에서 태그 사이에 공백과 개행문자를 제거하여 리턴한다.
+     * @param {string} htmlstr 태그사이에 공백과 개행문자를 제거할 문자열
+     * @returns {string} 공백과 개행문자가 제거된 문자열
+    */
+function replaceTagSpace(htmlstr)
+    {
+        htmlstr = htmlstr.replace(/\>[\s\n]+\</g, '><');        //정규식 사용하여 태그> <태그 사이의 공백문자와 개행문자를 제거함
+        return htmlstr;
+    }
 
 //****************************************************************
 //문자열에서 시작과 끝 문자열 구간을 찾아 리턴한다.
@@ -14,12 +26,14 @@
 //****************************************************************
 function sg_GetSubString(str, startString, endString, findStrInclude, findString) {
     // 여기에 코드를 작성하세요.
-    // 여기에 깃허브를 시험해보겠습니다.
     var result = "";                //결과를 저장할 문자열
     var tmp = 0;                    //시작 위치를 저장할 변수
     var idx = 0;                    //끝 위치를 저장할 변수
-    var findSubStr = 0;             //찾은 문자열의 위치를 저장할 변수
-    if(0 == findString)
+    var findSubStr = 0;
+    
+    
+
+    if(0 === findString)    //숫자 문자열이 들어왓을때 비교를 하기위해 ===사용
         return "SG_NA";
     if(isNaN(findString))           //숫자가 아닐때
     { 
@@ -68,8 +82,8 @@ function sg_GetSubString(str, startString, endString, findStrInclude, findString
                     findSubStr = str.substr(tmp, idx-tmp+endString.length); //endString의 길이를 구해서 더해준다 끝문자열의 시작위치를 반환하기 때문에 끝위치를 얻기위해서
                     //alert('tmp : '+ tmp +'\nidx : '+ idx + "\nfindSubStr : \n" + findSubStr + "\nfindString : " + findString);
                     
-                    findString--;
-                }else if(findString == 0)
+                    findString--;                                           //findString이 숫자로 들어오면 그횟수만큼 반복해줘야 한다. 따라서 1을 제거해준다.
+                }else if(findString == 0)                                   //findString이 0이되면 그 서브스트링이 결과이기 때문에 반환을 해준다.
                 {
                         result = findSubStr;
                         //alert("결과 : \n" + result);
@@ -109,22 +123,20 @@ function MAIN() {
     s += "<html>\n";
     s += "<body>\n";
     s += "  <table>\n";
-    s += "      <caption>공지사항</caption>\n";
+    s += "      <div>공지사항</div>\n";
     s += "  </table>\n";
     s += "  <table>\n";
-    s += "      <caption>사용자정보</caption>\n";
+    s += "      <div>사용자정보</div>\n";
     s += "  </table>\n";
     s += "  <table>\n";
-    s += "      <caption>게시판</caption>\n";
-    s += "          <div>첫번째</div>\n";
-    s += "  </table>\n";
-    s += "  <table>\n";
-    s += "      <caption>게시판</caption>\n";
-    s += "          <div>두번째</div>\n";
+    s += "      <div>첫번째</div>\n";
     s += "  </table>\n";
     s += "  <table>\n";
     s += "      <caption>게시판</caption>\n";
-    s += "          <div>세번째</div>\n";
+    s += "      <div>두번째</div>\n";
+    s += "  </table>\n";
+    s += "  <table>\n";
+    s += "      <div>세번째</div>\n";
     s += "  </table>\n";
     s += "  <table>\n";
     s += "      <caption>사용자정보</caption>\n";
@@ -142,6 +154,8 @@ function MAIN() {
     alert(htmlTable2);
     alert(htmlTable3);
     alert(htmlTable4);
+    // var htmlTable = sg_GetSubString(s, '<html>', '</html>', true, '네번째'); //실패 SG_NA출력
+    // alert(htmlTable);
 	}
     
 </script>
