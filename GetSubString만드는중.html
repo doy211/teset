@@ -31,11 +31,9 @@ function sg_GetSubString(str, startString, endString, findStrInclude, findString
     var idx = 0;                    //끝 위치를 저장할 변수
     var findSubStr = 0;
     
-    
-
-    if(0 === findString)    //숫자 문자열이 들어왓을때 비교를 하기위해 ===사용
-        return "SG_NA";
-    if(isNaN(findString))           //숫자가 아닐때
+    // if(typeof(0) === typeof(findString))    //숫자 문자열이 들어왓을때 비교를 하기위해 ===사용
+    //     return "SG_NA";
+    if(typeof(0) !== typeof(findString))           //숫자가 아닐때
     { 
         if(findStrInclude == true)  //findstrInclude가 true일때 태그 포함 출력
         {
@@ -48,7 +46,7 @@ function sg_GetSubString(str, startString, endString, findStrInclude, findString
                 if(findIdx != -1)   //
                 {
                     result = findSubStr;
-                    //alert("결과 : \n" + result);
+                    //alert("결과 : \n" + result); 
                     return result;
                 }
             }
@@ -70,7 +68,7 @@ function sg_GetSubString(str, startString, endString, findStrInclude, findString
                 }
             }
         }
-    }else if(!isNaN(findString))//숫자일때
+    }else if(typeof(0) === typeof(findString))//숫자일때
     {
         if(findStrInclude == true)  //findstrInclude가 true일때 태그 포함 출력
         {
@@ -127,6 +125,7 @@ function MAIN() {
     s += "  </table>\n";
     s += "  <table>\n";
     s += "      <div>사용자정보</div>\n";
+    s += "      <div>4dX</div>\n";
     s += "  </table>\n";
     s += "  <table>\n";
     s += "      <div>첫번째</div>\n";
@@ -149,11 +148,16 @@ function MAIN() {
     var htmlTable = sg_GetSubString(s, '<table>', '</table>', true, '세번째');
     var htmlTable2 = sg_GetSubString(s, '<table>', '</table>', false, '두번째');
     var htmlTable3 = sg_GetSubString(s, '<table>', '</table>', true, 3);       
-    var htmlTable4 = sg_GetSubString(s, '<table>', '</table>', false, 4);
+    //숫자 형식의 문자열이 들어왔을때 경우 테스트
+    var htmlTable4 = sg_GetSubString(s, '<table>', '</table>', false, '4');
+    var strLikeNum = '4';
+    var htmlTable5 = sg_GetSubString(s, '<table>', '</table>', false, strLikeNum);
     alert(htmlTable);
     alert(htmlTable2);
     alert(htmlTable3);
     alert(htmlTable4);
+    alert(htmlTable5);
+
     // var htmlTable = sg_GetSubString(s, '<html>', '</html>', true, '네번째'); //실패 SG_NA출력
     // alert(htmlTable);
 	}
